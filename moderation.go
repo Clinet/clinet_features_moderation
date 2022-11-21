@@ -13,29 +13,46 @@ import (
 var Log *logger.Logger
 
 var Feature = features.Feature{
+	Help: `Using the moderation feature allows easy-going control over a server.
+
+We provide 4 commands:
+
+/ban (user) <rule> <reason>
+- Bans the specified user
+/hackban (user) <rule> <reason>
+- Hackbans the specified user by ID
+/kick (user) <rule> <reason>
+- Kicks the specified user
+/warn (user) <rule> <reason>
+- Warns the specified user
+
+All 4 of the above commands can be used in the same way.
+ - Ex: /kick @JoshuaDoes 4 Breaking this really bad rule
+ - Ex: /ban @JoshuaDoes Breaking too many rules
+ - Ex: /hackban @JoshuaDoes 3
+ - Ex: /warn @JoshuaDoes 2
+ - Ex: /warn @JoshuaDoes`,
 	Name: "moderation",
 	Cmds: []*cmds.Cmd{
-		cmds.NewCmd("mod", "Collection of moderation utilities", nil).AddSubCmds(
-			cmds.NewCmd("ban", "Bans a given user", handleBan).AddArgs(
-				cmds.NewCmdArg("user", "Who to actually ban", cmds.ArgTypeUser).SetRequired(),
-				cmds.NewCmdArg("reason", "Reason for the ban", "No reason provided."),
-				cmds.NewCmdArg("rule", "Rule broken that led to ban", -1),
-			),
-			cmds.NewCmd("hackban", "Hackbans a given user ID", handleBan).AddArgs(
-				cmds.NewCmdArg("user", "ID of the user to ban", "").SetRequired(),
-				cmds.NewCmdArg("reason", "Reason for the ban", "No reason provided."),
-				cmds.NewCmdArg("rule", "Rule broken that led to ban", -1),
-			),
-			cmds.NewCmd("kick", "Kicks a given user", handleKick).AddArgs(
-				cmds.NewCmdArg("user", "Who to actually kick", cmds.ArgTypeUser).SetRequired(),
-				cmds.NewCmdArg("reason", "Reason for the kick", "No reason provided."),
-				cmds.NewCmdArg("rule", "Rule broken that led to kick", -1),
-			),
-			cmds.NewCmd("warn", "Warns a given user", handleWarn).AddArgs(
-				cmds.NewCmdArg("user", "Who to actually warn", cmds.ArgTypeUser).SetRequired(),
-				cmds.NewCmdArg("reason", "Reason for the warning", "No reason provided."),
-				cmds.NewCmdArg("rule", "Rule broken that led to warning", -1),
-			),
+		cmds.NewCmd("ban", "Bans a given user", handleBan).AddArgs(
+			cmds.NewCmdArg("user", "Who to actually ban", cmds.ArgTypeUser).SetRequired(),
+			cmds.NewCmdArg("reason", "Reason for the ban", "No reason provided."),
+			cmds.NewCmdArg("rule", "Rule broken that led to ban", -1),
+		),
+		cmds.NewCmd("hackban", "Hackbans a given user ID", handleBan).AddArgs(
+			cmds.NewCmdArg("user", "ID of the user to ban", "").SetRequired(),
+			cmds.NewCmdArg("reason", "Reason for the ban", "No reason provided."),
+			cmds.NewCmdArg("rule", "Rule broken that led to ban", -1),
+		),
+		cmds.NewCmd("kick", "Kicks a given user", handleKick).AddArgs(
+			cmds.NewCmdArg("user", "Who to actually kick", cmds.ArgTypeUser).SetRequired(),
+			cmds.NewCmdArg("reason", "Reason for the kick", "No reason provided."),
+			cmds.NewCmdArg("rule", "Rule broken that led to kick", -1),
+		),
+		cmds.NewCmd("warn", "Warns a given user", handleWarn).AddArgs(
+			cmds.NewCmdArg("user", "Who to actually warn", cmds.ArgTypeUser).SetRequired(),
+			cmds.NewCmdArg("reason", "Reason for the warning", "No reason provided."),
+			cmds.NewCmdArg("rule", "Rule broken that led to warning", -1),
 		),
 	},
 	Init: Init,
